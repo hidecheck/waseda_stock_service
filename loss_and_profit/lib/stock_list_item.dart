@@ -79,75 +79,96 @@ class _StockListItemState extends State<StockListItem> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.stock['symbol_name']),
-      subtitle: Row(
+      subtitle: Column(
         children: [
-          SizedBox(
-            width: 100,
-            child: TextField(
-              controller: _priceController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder()
+          Row(
+            children: [
+              SizedBox(
+                width: 100,
+                child: TextField(
+                  controller: _priceController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder()
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: 10),
+              IconButton(
+                icon: const Icon(Icons.remove),
+                onPressed: _decrementPrice,
+              ),
+              const SizedBox(width: 5),
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: _incrementPrice,
+              ),
+            ],
           ),
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: _incrementPrice,
-          ),
-          IconButton(
-            icon: const Icon(Icons.remove),
-            onPressed: _decrementPrice,
-          ),
+          const SizedBox(width: 10),
+          Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        '(+1%): ',
+                        style: const TextStyle(color: Colors.green),
+                      ),
+                      Text(
+                        _plusOnePercentPrice.toStringAsFixed(1),
+                        style: const TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        '(-0.5%): ',
+                        style: const TextStyle(color: Colors.green),
+                      ),
+                      Text(
+                        _minusZero5PercentPrice.toStringAsFixed(1),
+                        style: const TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '(-1%): ',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                      Text(
+                        _minusOnePercentPrice.toStringAsFixed(1),
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        '(+0.5%): ',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                      Text(
+                        _plusZero5PercentPrice.toStringAsFixed(1),
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20
 
-          const SizedBox(width: 10),
-          Text(
-            '(+1%): ',
-            style: const TextStyle(color: Colors.green),
-          ),
-          Text(
-            _plusOnePercentPrice.toStringAsFixed(1),
-            style: const TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          const SizedBox(width: 5),
-          Text(
-            '(-0.5%): ',
-            style: const TextStyle(color: Colors.green),
-          ),
-          Text(
-            _minusZero5PercentPrice.toStringAsFixed(1),
-            style: const TextStyle(
-              color: Colors.green,
-              fontWeight: FontWeight.bold
-            ),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            '(-1%): ',
-            style: const TextStyle(color: Colors.red),
-          ),
-          Text(
-            _minusOnePercentPrice.toStringAsFixed(1),
-            style: const TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          const SizedBox(width: 5),
-          Text(
-            '(+0.5%): ',
-            style: const TextStyle(color: Colors.red),
-          ),
-          Text(
-            _plusZero5PercentPrice.toStringAsFixed(1),
-            style: const TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold
-            ),
-          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
         ],
       ),
 
