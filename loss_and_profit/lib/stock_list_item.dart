@@ -18,6 +18,9 @@ class _StockListItemState extends State<StockListItem> {
   late final TextEditingController _priceController;
   // 計算結果を保持する状態変数
   late double _plusOnePercentPrice;
+  late double _minusOnePercentPrice;
+  late double _plusZero5PercentPrice;
+  late double _minusZero5PercentPrice;
 
   @override
   void initState() {
@@ -32,17 +35,20 @@ class _StockListItemState extends State<StockListItem> {
   }
 
   void _calculatePlusOnePercentPrice() {
-    print("_calculatePlusOnePercentPrice");
     try {
       final double currentPrice = double.parse(_priceController.text);
       setState(() {
         _plusOnePercentPrice = currentPrice * 1.01;
-        print(_plusOnePercentPrice);
+        _minusOnePercentPrice = currentPrice * 0.99;
+        _plusZero5PercentPrice = currentPrice * 1.005;
+        _minusZero5PercentPrice = currentPrice * 0.995;
       });
     } catch (e) {
-      print(e);
       setState(() {
         _plusOnePercentPrice = 0.0;
+        _minusOnePercentPrice = 0.0;
+        _plusZero5PercentPrice = 0.0;
+        _minusZero5PercentPrice = 0.0;
       });
     }
   }
@@ -81,24 +87,67 @@ class _StockListItemState extends State<StockListItem> {
               controller: _priceController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder()
               ),
             ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.remove),
-            onPressed: _decrementPrice,
           ),
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: _incrementPrice,
           ),
+          IconButton(
+            icon: const Icon(Icons.remove),
+            onPressed: _decrementPrice,
+          ),
 
           const SizedBox(width: 10),
           Text(
-            '(+1%): ${_plusOnePercentPrice.toStringAsFixed(1)} 円',
+            '(+1%): ',
             style: const TextStyle(color: Colors.green),
-          )
+          ),
+          Text(
+            _plusOnePercentPrice.toStringAsFixed(1),
+            style: const TextStyle(
+                color: Colors.green,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          const SizedBox(width: 5),
+          Text(
+            '(-0.5%): ',
+            style: const TextStyle(color: Colors.green),
+          ),
+          Text(
+            _minusZero5PercentPrice.toStringAsFixed(1),
+            style: const TextStyle(
+              color: Colors.green,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            '(-1%): ',
+            style: const TextStyle(color: Colors.red),
+          ),
+          Text(
+            _minusOnePercentPrice.toStringAsFixed(1),
+            style: const TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          const SizedBox(width: 5),
+          Text(
+            '(+0.5%): ',
+            style: const TextStyle(color: Colors.red),
+          ),
+          Text(
+            _plusZero5PercentPrice.toStringAsFixed(1),
+            style: const TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold
+            ),
+          ),
         ],
       ),
 

@@ -50,7 +50,7 @@ class _StockListWidgetState extends State<StockListWidget>{
                 _futureData = _apiService.fetchData(_controller.text);
               });
             },
-            child: const Text('メッセージを変更'),
+            child: const Text('株価取得'),
           ),
           const SizedBox(height: 20),
 
